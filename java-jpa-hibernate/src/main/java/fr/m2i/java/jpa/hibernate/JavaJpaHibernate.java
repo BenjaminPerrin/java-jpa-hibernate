@@ -5,6 +5,7 @@
 
 package fr.m2i.java.jpa.hibernate;
 
+import fr.m2i.java.jpa.hibernate.helper.SessionHelper;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -16,8 +17,9 @@ import javax.persistence.Persistence;
 public class JavaJpaHibernate {
 
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("site_commerce_pu");
-        EntityManager entityManager = emf.createEntityManager();
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("site_commerce_pu");
+//        EntityManager entityManager = emf.createEntityManager();
+        SessionHelper.getEntityManager();
         System.out.println("Hello World!");
     }
 }
