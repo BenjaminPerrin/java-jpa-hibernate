@@ -5,6 +5,8 @@
 
 package fr.m2i.java.jpa.hibernate;
 
+import Role.role;
+import fr.m2i.java.jpa.hibernate.dao.RoleDAO;
 import fr.m2i.java.jpa.hibernate.helper.SessionHelper;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -20,6 +22,11 @@ public class JavaJpaHibernate {
 //        EntityManagerFactory emf = Persistence.createEntityManagerFactory("site_commerce_pu");
 //        EntityManager entityManager = emf.createEntityManager();
         EntityManager entityManager = SessionHelper.getEntityManager();
+        role test = new role("test","wqeqeqeqwe");
+        RoleDAO.create(test);
+        RoleDAO.findById(1);
+        role testUpdate = new role("test","sss");
+        RoleDAO.update(testUpdate);
         System.out.println("good");
         entityManager.close();
     }

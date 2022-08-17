@@ -13,7 +13,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "roles")
-public class java implements Serializable {
+public class role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(
@@ -37,13 +37,12 @@ public class java implements Serializable {
     )
     private String identifiant;
      
-    public java(long id_role, String description, String identifiant) {
-        this.id_role = id_role;
+    public role(String description, String identifiant) {
         this.description = description;
         this.identifiant = identifiant;
     }
 
-    public java() {
+    public role() {
     }
 
     public long getId_role() {
