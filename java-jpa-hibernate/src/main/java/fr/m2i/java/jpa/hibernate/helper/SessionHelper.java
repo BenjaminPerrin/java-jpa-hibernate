@@ -13,20 +13,15 @@ import javax.persistence.Persistence;
  * @author ben
  */
 public class SessionHelper {
-    public static void main(String[] args) {
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("site_commerce_pu");
-//        EntityManager entityManager = emf.createEntityManager();
-        getEntityManager();
-        
-    }
+    private static EntityManager entityManager;
+
     public static EntityManager getEntityManager(){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("site_commerce_pu");
-        if (emf == null) {
-        EntityManager entityManager = emf.createEntityManager();
-        System.out.println("entity ok! "+ entityManager);
-        return entityManager;
+        if (entityManager == null) {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("site_commerce_pu");
+            entityManager = emf.createEntityManager();
+            System.out.println("entity ok! "+ entityManager);
         }
-        System.out.println("nop!");
-        return null;
+            System.out.println("nop!");
+            return entityManager;
     }
 }

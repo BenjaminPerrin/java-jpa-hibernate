@@ -19,7 +19,8 @@ public class JavaJpaHibernate {
     public static void main(String[] args) {
 //        EntityManagerFactory emf = Persistence.createEntityManagerFactory("site_commerce_pu");
 //        EntityManager entityManager = emf.createEntityManager();
-        SessionHelper.getEntityManager();
-        System.out.println("Hello World!");
+        EntityManager entityManager = SessionHelper.getEntityManager();
+        System.out.println("good");
+        entityManager.close();
     }
 }
