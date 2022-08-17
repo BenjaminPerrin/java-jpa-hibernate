@@ -70,6 +70,15 @@ public class role implements Serializable {
     }
     
    
-    
+    public void copy(role roleData) {
+
+        if (roleData.getIdentifiant() != null) {
+            this.setIdentifiant(roleData.getIdentifiant());
+        }
+
+        if (roleData.getDescription()!= null) {
+            this.setDescription(roleData.getDescription());
+        }
+    }
     
 }
