@@ -43,9 +43,10 @@ public class RoleDAO {
                 trans = entityManager.getTransaction();
                 trans.begin();
                 role role1 = entityManager.find(role.class, role.getId_role());
+                role.setId_role(1);
                 entityManager.merge(role);
-                trans.commit();
                 System.out.println("update ok ! "+role1);
+                trans.commit();
             } catch(Exception e) {
                 if (trans != null) trans.rollback();
             }

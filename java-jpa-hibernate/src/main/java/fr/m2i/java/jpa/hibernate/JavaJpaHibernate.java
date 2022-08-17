@@ -23,9 +23,9 @@ public class JavaJpaHibernate {
 //        EntityManager entityManager = emf.createEntityManager();
         EntityManager entityManager = SessionHelper.getEntityManager();
         role test = new role("test","wqeqeqeqwe");
-        RoleDAO.create(test);
+        //RoleDAO.create(test);
         RoleDAO.findById(1);
-        role testUpdate = new role("test","sss");
+        role testUpdate = new role("test","asas");
         RoleDAO.update(testUpdate);
         System.out.println("good");
         entityManager.close();
