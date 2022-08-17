@@ -27,6 +27,11 @@ public class java implements Serializable {
     )
     private String description;
 
+    @Override
+    public String toString() {
+        return "java{" + "id_role=" + id_role + ", description=" + description + ", identifiant=" + identifiant + '}';
+    }
+
      @Column(
             length = 50
     )
