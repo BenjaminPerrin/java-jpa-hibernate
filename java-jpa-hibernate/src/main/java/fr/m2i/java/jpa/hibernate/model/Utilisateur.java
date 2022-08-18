@@ -5,6 +5,7 @@
 package fr.m2i.java.jpa.hibernate.model;
 import Role.role;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 
 @Entity
@@ -19,6 +20,10 @@ public class Utilisateur {
     @JoinColumn(name = "id_role", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private role role;
+    
+    @OneToMany(mappedBy = "idUtilisateur", cascade = CascadeType.ALL,
+        orphanRemoval = true)
+    private List<Adresse> adressList;
 
     @Column(name = "civilite", length = 100)
     private String civilite;
@@ -52,15 +57,48 @@ public class Utilisateur {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_naissance", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date dateNaissance;
+    
+    
 
     public Utilisateur() {
 
     }
 
-    public Utilisateur(role role, String civilite, String nom, String prenom,
-            String identifiant, String motPasse, Boolean actif, Boolean marquerEffacer,
-            Date dateCreation, Date dateModification, Date dateNaissance) {
+    public List<Adresse> getAdressList() {
+        return adressList;
+    }
+
+    public void setAdressList(List<Adresse> adressList) {
+        this.adressList = adressList;
+    }
+
+//    public Utilisateur(role role, String civilite, String nom, String prenom,
+//            String identifiant, String motPasse, Boolean actif, Boolean marquerEffacer,
+//            Date dateCreation, Date dateModification, Date dateNaissance) {
+//        this.role = role;
+//        this.civilite = civilite;
+//        this.nom = nom;
+//        this.prenom = prenom;
+//        this.identifiant = identifiant;
+//        this.motPasse = motPasse;
+//        this.actif = actif;
+//        this.marquerEffacer = marquerEffacer;
+//        this.dateCreation = dateCreation;
+//        this.dateModification = dateModification;
+//        this.dateNaissance = dateNaissance;
+//    }
+
+    public Long getIdUtilisateur() {
+        return idUtilisateur;
+    }
+
+    public void setIdUtilisateur(Long idUtilisateur) {
+        this.idUtilisateur = idUtilisateur;
+    }
+
+    public Utilisateur(role role, List<Adresse> adressList, String civilite, String nom, String prenom, String identifiant, String motPasse, Boolean actif, Boolean marquerEffacer, Date dateCreation, Date dateModification, Date dateNaissance) {
         this.role = role;
+        this.adressList = adressList;
         this.civilite = civilite;
         this.nom = nom;
         this.prenom = prenom;
@@ -71,14 +109,6 @@ public class Utilisateur {
         this.dateCreation = dateCreation;
         this.dateModification = dateModification;
         this.dateNaissance = dateNaissance;
-    }
-
-    public Long getIdUtilisateur() {
-        return idUtilisateur;
-    }
-
-    public void setIdUtilisateur(Long idUtilisateur) {
-        this.idUtilisateur = idUtilisateur;
     }
 
     public role getRole() {
