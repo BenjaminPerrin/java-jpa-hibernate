@@ -5,117 +5,135 @@
 package fr.m2i.java.jpa.hibernate.model;
 
 import Role.role;
-import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
-/**
- *
- * @author ben
- */
 @Entity
 @Table(name = "utilisateurs")
-public class Utilisateur implements Serializable{
+public class Utilisateur {
+    
     @Id
+    @Column(name = "id_utilisateur")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(
-        length = 20,
-        columnDefinition="BIGINT"
-    )
-    private long id_utilisateur;
-    
-    @Column(
-        length = 1,
-        columnDefinition="TINYINT"
-    )
-    private long actif;
-    
-    @Column(
-        length = 100
-    )
-    private String civilite;
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date_creation;
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date_modification;
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date_naissance;
-    
-    @Column(
-        length = 100
-    )
-    private String identifiant;
-    
-    @Column(
-        length = 1,
-        columnDefinition="TINYINT"
-    )
-    private long marquer_effacer;
-    
-    @Column(
-        length = 100
-    )
-    private String mot_pass;
-    
-    @Column(
-        length = 100
-    )
-    private String nom;
-    
-    @Column(
-        length = 100
-    )
-    private String prenom;
-    
+    private Long idUtilisateur;
+
+    @JoinColumn(name = "id_role", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_role")
-    private role id_role;
+    private role role;
 
-    public Utilisateur(long actif, String civilite, Date date_creation, Date date_modification, Date date_naissance, String identifiant, long marquer_effacer, String mot_pass, String nom, String prenom, role id_role) {
-        this.actif = actif;
-        this.civilite = civilite;
-        this.date_creation = date_creation;
-        this.date_modification = date_modification;
-        this.date_naissance = date_naissance;
-        this.identifiant = identifiant;
-        this.marquer_effacer = marquer_effacer;
-        this.mot_pass = mot_pass;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.id_role = id_role;
-    }
+    @Column(name = "civilite", length = 100)
+    private String civilite;
 
+    @Column(name = "nom", length = 100)
+    private String nom;
 
+    @Column(name = "prenom", length = 100)
+    private String prenom;
 
-    public role getId_role() {
-        return id_role;
-    }
+    @Column(name = "identifiant", length = 100)
+    private String identifiant;
 
-    public void setId_role(role id_role) {
-        this.id_role = id_role;
-    }
+    @Column(name = "mot_passe", length = 100)
+    private String motPasse;
 
+    @Column(name = "actif", columnDefinition = "TINYINT(1) DEFAULT 1")
+    private Boolean actif;
+
+    @Column(name = "marquer_effacer", columnDefinition = "TINYINT(1) DEFAULT 0")
+    private Boolean marquerEffacer;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_creation", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date dateCreation;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_modification", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date dateModification;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_naissance", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date dateNaissance;
 
     public Utilisateur() {
+
     }
 
-    public long getId_utilisateur() {
-        return id_utilisateur;
-    }
-
-    public void setId_utilisateur(long id_utilisateur) {
-        this.id_utilisateur = id_utilisateur;
-    }
-
-    public long getActif() {
-        return actif;
-    }
-
-    public void setActif(long actif) {
+    public Utilisateur(role role, String civilite, String nom, String prenom,
+            String identifiant, String motPasse, Boolean actif, Boolean marquerEffacer,
+            Date dateCreation, Date dateModification, Date dateNaissance) {
+        this.role = role;
+        this.civilite = civilite;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.identifiant = identifiant;
+        this.motPasse = motPasse;
         this.actif = actif;
+        this.marquerEffacer = marquerEffacer;
+        this.dateCreation = dateCreation;
+        this.dateModification = dateModification;
+        this.dateNaissance = dateNaissance;
+    }
+    public void copy(Utilisateur userData) {
+
+        if (userData.getIdUtilisateur() != null) {
+            this.setIdUtilisateur(userData.getIdUtilisateur());
+        }
+
+        if (userData.getCivilite()!= null) {
+            this.setCivilite(userData.getCivilite());
+        }
+        
+        if (userData.getNom()!= null) {
+            this.setNom(userData.getNom());
+        }
+        
+        if (userData.getPrenom()!= null) {
+            this.setPrenom(userData.getPrenom());
+        }
+        
+        if (userData.getIdentifiant()!= null) {
+            this.setIdentifiant(userData.getIdentifiant());
+        }
+        
+        if (userData.getMotPasse()!= null) {
+            this.setMotPasse(userData.getMotPasse());
+        }
+        
+        if (userData.getActif()!= null) {
+            this.setActif(userData.getActif());
+        }
+        
+        if (userData.getMarquerEffacer()!= null) {
+            this.setMarquerEffacer(userData.getMarquerEffacer());
+        }
+        
+        if (userData.getDateCreation()!= null) {
+            this.setDateCreation(userData.getDateCreation());
+        }
+        
+        if (userData.getDateModification()!= null) {
+            this.setDateModification(userData.getDateModification());
+        }
+        
+        if (userData.getDateNaissance()!= null) {
+            this.setDateNaissance(userData.getDateNaissance());
+        }
+    }
+
+    public Long getIdUtilisateur() {
+        return idUtilisateur;
+    }
+
+    public void setIdUtilisateur(Long idUtilisateur) {
+        this.idUtilisateur = idUtilisateur;
+    }
+
+    public role getRole() {
+        return role;
+    }
+
+    public void setRole(role role) {
+        this.role = role;
     }
 
     public String getCivilite() {
@@ -124,56 +142,6 @@ public class Utilisateur implements Serializable{
 
     public void setCivilite(String civilite) {
         this.civilite = civilite;
-    }
-
-    public Date getDate_creation() {
-        return date_creation;
-    }
-
-    public void setDate_creation(Date date_creation) {
-        this.date_creation = date_creation;
-    }
-
-    public Date getDate_modification() {
-        return date_modification;
-    }
-
-    public void setDate_modification(Date date_modification) {
-        this.date_modification = date_modification;
-    }
-
-    public Date getDate_naissance() {
-        return date_naissance;
-    }
-
-    public void setDate_naissance(Date date_naissance) {
-        this.date_naissance = date_naissance;
-    }
-
-
-
-    public String getIdentifiant() {
-        return identifiant;
-    }
-
-    public void setIdentifiant(String identifiant) {
-        this.identifiant = identifiant;
-    }
-
-    public long getMarquer_effacer() {
-        return marquer_effacer;
-    }
-
-    public void setMarquer_effacer(long marquer_effacer) {
-        this.marquer_effacer = marquer_effacer;
-    }
-
-    public String getMot_pass() {
-        return mot_pass;
-    }
-
-    public void setMot_pass(String mot_pass) {
-        this.mot_pass = mot_pass;
     }
 
     public String getNom() {
@@ -192,7 +160,75 @@ public class Utilisateur implements Serializable{
         this.prenom = prenom;
     }
 
-   
-    
-    
+    public String getIdentifiant() {
+        return identifiant;
+    }
+
+    public void setIdentifiant(String identifiant) {
+        this.identifiant = identifiant;
+    }
+
+    public String getMotPasse() {
+        return motPasse;
+    }
+
+    public void setMotPasse(String motPasse) {
+        this.motPasse = motPasse;
+    }
+
+    public Boolean getActif() {
+        return actif;
+    }
+
+    public void setActif(Boolean actif) {
+        this.actif = actif;
+    }
+
+    public Boolean getMarquerEffacer() {
+        return marquerEffacer;
+    }
+
+    public void setMarquerEffacer(Boolean marquerEffacer) {
+        this.marquerEffacer = marquerEffacer;
+    }
+
+    public Date getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    public Date getDateModification() {
+        return dateModification;
+    }
+
+    public void setDateModification(Date dateModification) {
+        this.dateModification = dateModification;
+    }
+
+    public Date getDateNaissance() {
+        return dateNaissance;
+    }
+
+    public void setDateNaissance(Date dateNaissance) {
+        this.dateNaissance = dateNaissance;
+    }
+
+    @Override
+    public String toString() {
+        return "Utilisateur{" + "idUtilisateur=" + idUtilisateur
+                + ", role=" + role
+                + ", civilite=" + civilite
+                + ", nom=" + nom
+                + ", prenom=" + prenom
+                + ", identifiant=" + identifiant
+                + ", motPasse=" + motPasse
+                + ", actif=" + actif
+                + ", marquerEffacer=" + marquerEffacer
+                + ", dateCreation=" + dateCreation
+                + ", dateModification=" + dateModification
+                + ", dateNaissance=" + dateNaissance + '}';
+    }
 }
