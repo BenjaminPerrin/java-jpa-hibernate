@@ -25,55 +25,65 @@ import javax.persistence.Persistence;
  *
  * @author ben
  */
+
 public class JavaJpaHibernate {
 
     public static void main(String[] args) {
-        EntityManager entityManager = SessionHelper.getEntityManager();
-        RoleDAO roleDao = new RoleDAO();
-        UtilisateurDAO userDAO = new UtilisateurDAO();        
-        AdresseDAO adresseDAO = new AdresseDAO();
 
+        EntityManager entityManager = SessionHelper.getEntityManager();
+
+        /*********** ROLE **********/
+//        RoleDAO roleDao = new RoleDAO();
+        
+        // create
+//        Role role = new Role("USER", "Le rôle User"); 
+//        roleDao.create(role);
+
+        // find all
+//        List<Role> roles = roleDao.findAll();
+//        
+//        for (Role r : roles) {
+//            System.out.println(r);
+//        }
+
+//        // find
+//        Role founded = roleDao.findById(1L);
+//        System.out.println("Role CREATED : " + founded);
+//
+//        // update
+//        Role roleData = new Role();
+//        roleData.setDescription("Le rôle Administrateur implique de grandes responsabilités");
+//
+//        roleDao.update(1L, roleData);
+//
+//        // find
+//        Role updated = roleDao.findById(1L);
+//        System.out.println("Role UPDATED : " + updated);
+
+
+        /*********** USER **********/
+        
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        UtilisateurDAO userDao = new UtilisateurDAO();
 
         // create
-        role roleAdmin = new role("ADMIN", "Le rôle Administrateur");
-        //roleDao.create(roleAdmin);
-
-        // find
-        // role founded = roleDao.findById(1L);
-        //System.out.println("Role CREATED : " + founded);
-        // update
-        //role roleData = new role();
-        // roleData.setDescription("Le rôle Administrateur implique de grandes responsabilités");
-        //roleDao.update(1L, roleData);
-        // find
-        //role updated = roleDao.findById(1L);
-        // System.out.println("Role UPDATED : " + updated);
-        //findall
-//        List<role> results = roleDao.findAll();
-//        System.out.println("results : " + results);
-/*********** USER **********/
-//        
-//        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-//        UtilisateurDAO userDao = new UtilisateurDAO();
-//
-//        // create
-//        role role = new role();
-//        role.setId_role(1L);
+//        Role role = new Role();
+//        role.setIdRole(1L);
 //
 //        Utilisateur user = new Utilisateur(role, "Madame", "Mme x", "x", "x_x", "password", true, false, new Date(), new Date(), new Date());
 //        Utilisateur user2 = new Utilisateur(role, "Monsieur", "Mr x", "x", "x_x", "password", true, false, new Date(), new Date(), new Date());
 //
 //        userDao.create(user);
 //        userDao.create(user2);
-//        
-//        // find all
+        
+        // find all
 //        List<Utilisateur> users = userDao.findAll();
 //
 //        for (Utilisateur u : users) {
 //            System.out.println("Find all : " + u);
 //        }
-//
-//        // update
+
+        // update
 //        Utilisateur userData = new Utilisateur();
 //        userData.setActif(false);
 //        userData.setMarquerEffacer(true);
@@ -85,27 +95,49 @@ public class JavaJpaHibernate {
 //        }
 //
 //        userDao.update(2L, userData);
-//
-//        // find
-//        Utilisateur founded = userDao.findById(2L);
-//        System.out.println("User updated : " + founded);
-        /*********** Adresse **********/
 
-        
-         // create
-        role role = new role();
-        role.setId_role(1L);
-        
-        Utilisateur user3 = new Utilisateur();
-        List<Adresse> list1 = new ArrayList<Adresse>(1);
-        user3.setAdressList(list1);
+        // find
+        Utilisateur secondUser = userDao.findById(2L);
+        System.out.println("User updated : " + secondUser);
 
-        Utilisateur user = new Utilisateur(role,list1, "Madame", "Mme x", "x", "x_x", "password", true, false, new Date(), new Date(), new Date());
-        Utilisateur user2 = new Utilisateur(role,list1, "Monsieur", "Mr x", "x", "x_x", "password", true, false, new Date(), new Date(), new Date());
+        /*********** ADDRESS **********/
         
-        Adresse adresse1 = new Adresse(user,"france", true, "la rue", "la ville");
-        adresseDAO.create(adresse1);
+        AdresseDAO adresseDao = new AdresseDAO();
+        
+        // create
+        Utilisateur user = new Utilisateur();
+        user.setIdUtilisateur(1L);
+
+        Adresse address1 = new Adresse(user, "1 rue de la paix", "75001", "Paris", "France", true);
+        Adresse address2 = new Adresse(secondUser, "2 rue de la guerre", "75019", "Paris", "France", false);
+        
+        adresseDao.create(address1);
+        adresseDao.create(address2);
+
+        // find all
+        List<Adresse> addresses = adresseDao.findAll();
+        
+        for (Adresse a : addresses) {
+            System.out.println("All addresses : " + a.getFullAdresse());
+        }
+
+        // update
+        Adresse addressData = new Adresse();
+        addressData.setRue("2 rue de la paix");
+        addressData.setPrincipale(true);
+        
+        adresseDao.update(2L, addressData);
+        
+        // find by user
+        List<Adresse> addressesOfSecondUser = adresseDao.findByUtilisateur(secondUser);
+        
+        for (Adresse a : addressesOfSecondUser) {
+            System.out.println("All addresses of 2nd user : " + a.getFullAdresse());
+        }
+
+        // find
+        System.out.println("First address : " + adresseDao.findById(1L).getFullAdresse());
+
         entityManager.close();
-
     }
 }

@@ -20,10 +20,9 @@ public class Utilisateur {
     @JoinColumn(name = "id_role", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private role role;
-    
-    @OneToMany(mappedBy = "idUtilisateur", cascade = CascadeType.ALL,
-        orphanRemoval = true)
-    private List<Adresse> adressList;
+
+    @OneToMany(mappedBy = "utilisateur", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Adresse> adresses;
 
     @Column(name = "civilite", length = 100)
     private String civilite;
@@ -57,48 +56,15 @@ public class Utilisateur {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_naissance", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date dateNaissance;
-    
-    
 
     public Utilisateur() {
 
     }
 
-    public List<Adresse> getAdressList() {
-        return adressList;
-    }
-
-    public void setAdressList(List<Adresse> adressList) {
-        this.adressList = adressList;
-    }
-
-//    public Utilisateur(role role, String civilite, String nom, String prenom,
-//            String identifiant, String motPasse, Boolean actif, Boolean marquerEffacer,
-//            Date dateCreation, Date dateModification, Date dateNaissance) {
-//        this.role = role;
-//        this.civilite = civilite;
-//        this.nom = nom;
-//        this.prenom = prenom;
-//        this.identifiant = identifiant;
-//        this.motPasse = motPasse;
-//        this.actif = actif;
-//        this.marquerEffacer = marquerEffacer;
-//        this.dateCreation = dateCreation;
-//        this.dateModification = dateModification;
-//        this.dateNaissance = dateNaissance;
-//    }
-
-    public Long getIdUtilisateur() {
-        return idUtilisateur;
-    }
-
-    public void setIdUtilisateur(Long idUtilisateur) {
-        this.idUtilisateur = idUtilisateur;
-    }
-
-    public Utilisateur(role role, List<Adresse> adressList, String civilite, String nom, String prenom, String identifiant, String motPasse, Boolean actif, Boolean marquerEffacer, Date dateCreation, Date dateModification, Date dateNaissance) {
+    public Utilisateur(role role, String civilite, String nom, String prenom,
+            String identifiant, String motPasse, Boolean actif, Boolean marquerEffacer,
+            Date dateCreation, Date dateModification, Date dateNaissance) {
         this.role = role;
-        this.adressList = adressList;
         this.civilite = civilite;
         this.nom = nom;
         this.prenom = prenom;
@@ -111,12 +77,28 @@ public class Utilisateur {
         this.dateNaissance = dateNaissance;
     }
 
+    public Long getIdUtilisateur() {
+        return idUtilisateur;
+    }
+
+    public void setIdUtilisateur(Long idUtilisateur) {
+        this.idUtilisateur = idUtilisateur;
+    }
+
     public role getRole() {
         return role;
     }
 
     public void setRole(role role) {
         this.role = role;
+    }
+
+    public List<Adresse> getAdresses() {
+        return adresses;
+    }
+
+    public void setAdresses(List<Adresse> adresses) {
+        this.adresses = adresses;
     }
 
     public String getCivilite() {
@@ -213,6 +195,14 @@ public class Utilisateur {
                 + ", dateCreation=" + dateCreation
                 + ", dateModification=" + dateModification
                 + ", dateNaissance=" + dateNaissance + '}';
+    }
+
+    public void addAddress(Adresse address) {
+        
+    }
+
+    public void removeAddress(Adresse address) {
+        
     }
 
     public void copy(Utilisateur userData) {
