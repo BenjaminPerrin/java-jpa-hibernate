@@ -24,22 +24,22 @@ public class JavaJpaHibernate {
         RoleDAO roleDao = new RoleDAO();
 
         // create
-        role roleAdmin = new role("ADMIN", "Le rôle Administrateur"); 
-        roleDao.create(roleAdmin);
+        //role roleAdmin = new role("ADMIN", "Le rôle Administrateur"); 
+        //roleDao.create(roleAdmin);
 
         // find
-        role founded = roleDao.findById(1L);
-        System.out.println("Role CREATED : " + founded);
+       // role founded = roleDao.findById(1L);
+        //System.out.println("Role CREATED : " + founded);
 
         // update
-        role roleData = new role();
-        roleData.setDescription("Le rôle Administrateur implique de grandes responsabilités");
+        //role roleData = new role();
+       // roleData.setDescription("Le rôle Administrateur implique de grandes responsabilités");
 
-        roleDao.update(1L, roleData);
+        //roleDao.update(1L, roleData);
 
         // find
-        role updated = roleDao.findById(1L);
-        System.out.println("Role UPDATED : " + updated);
+        //role updated = roleDao.findById(1L);
+       // System.out.println("Role UPDATED : " + updated);
 
         //findall
         List<role> results = roleDao.findAll();

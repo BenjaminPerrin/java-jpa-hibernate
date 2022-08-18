@@ -4,6 +4,7 @@
  */
 package fr.m2i.java.jpa.hibernate.model;
 
+import Role.role;
 import java.io.Serializable;
 import javax.persistence.*;
 
@@ -74,13 +75,11 @@ public class Utilisateur implements Serializable{
     )
     private String prenom;
     
-    @Column(
-        length = 20,
-        columnDefinition="BIGINT"
-    )
-    private long id_role;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_role")
+    private role id_role;
 
-    public Utilisateur(long actif, String civilite, String date_creation, String date_modification, String date_naissance, String identifiant, long marquer_effacer, String mot_pass, String nom, String prenom, long id_role) {
+    public Utilisateur(long actif, String civilite, String date_creation, String date_modification, String date_naissance, String identifiant, long marquer_effacer, String mot_pass, String nom, String prenom, role id_role) {
         this.actif = actif;
         this.civilite = civilite;
         this.date_creation = date_creation;
@@ -93,6 +92,15 @@ public class Utilisateur implements Serializable{
         this.prenom = prenom;
         this.id_role = id_role;
     }
+
+    public role getId_role() {
+        return id_role;
+    }
+
+    public void setId_role(role id_role) {
+        this.id_role = id_role;
+    }
+
 
     public Utilisateur() {
     }
@@ -185,14 +193,7 @@ public class Utilisateur implements Serializable{
         this.prenom = prenom;
     }
 
-    public long getId_role() {
-        return id_role;
-    }
-
-    public void setId_role(long id_role) {
-        this.id_role = id_role;
-    }
-    
+   
     
     
 }
