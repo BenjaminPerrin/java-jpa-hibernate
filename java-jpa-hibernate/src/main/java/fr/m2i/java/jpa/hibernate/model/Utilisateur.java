@@ -6,6 +6,7 @@ package fr.m2i.java.jpa.hibernate.model;
 
 import Role.role;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.*;
 
 /**
@@ -34,20 +35,14 @@ public class Utilisateur implements Serializable{
     )
     private String civilite;
     
-    @Column(
-        columnDefinition="TIMESTAMP"
-    )
-    private String date_creation;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date_creation;
     
-    @Column(
-        columnDefinition="TIMESTAMP"
-    )
-    private String date_modification;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date_modification;
     
-    @Column(
-        columnDefinition="TIMESTAMP"
-    )
-    private String date_naissance;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date_naissance;
     
     @Column(
         length = 100
@@ -79,7 +74,7 @@ public class Utilisateur implements Serializable{
     @JoinColumn(name = "id_role")
     private role id_role;
 
-    public Utilisateur(long actif, String civilite, String date_creation, String date_modification, String date_naissance, String identifiant, long marquer_effacer, String mot_pass, String nom, String prenom, role id_role) {
+    public Utilisateur(long actif, String civilite, Date date_creation, Date date_modification, Date date_naissance, String identifiant, long marquer_effacer, String mot_pass, String nom, String prenom, role id_role) {
         this.actif = actif;
         this.civilite = civilite;
         this.date_creation = date_creation;
@@ -92,6 +87,8 @@ public class Utilisateur implements Serializable{
         this.prenom = prenom;
         this.id_role = id_role;
     }
+
+
 
     public role getId_role() {
         return id_role;
@@ -129,29 +126,31 @@ public class Utilisateur implements Serializable{
         this.civilite = civilite;
     }
 
-    public String getDate_creation() {
+    public Date getDate_creation() {
         return date_creation;
     }
 
-    public void setDate_creation(String date_creation) {
+    public void setDate_creation(Date date_creation) {
         this.date_creation = date_creation;
     }
 
-    public String getDate_modification() {
+    public Date getDate_modification() {
         return date_modification;
     }
 
-    public void setDate_modification(String date_modification) {
+    public void setDate_modification(Date date_modification) {
         this.date_modification = date_modification;
     }
 
-    public String getDate_naissance() {
+    public Date getDate_naissance() {
         return date_naissance;
     }
 
-    public void setDate_naissance(String date_naissance) {
+    public void setDate_naissance(Date date_naissance) {
         this.date_naissance = date_naissance;
     }
+
+
 
     public String getIdentifiant() {
         return identifiant;
