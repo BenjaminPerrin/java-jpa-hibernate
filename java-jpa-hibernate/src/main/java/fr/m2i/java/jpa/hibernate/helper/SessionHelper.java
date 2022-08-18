@@ -21,7 +21,6 @@ public class SessionHelper {
             entityManager = emf.createEntityManager();
             System.out.println("entity ok! "+ entityManager);
         }
-            System.out.println("nop!");
             return entityManager;
     }
 }

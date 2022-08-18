@@ -46,32 +46,44 @@ public class JavaJpaHibernate {
         //findall
 //        List<role> results = roleDao.findAll();
 //        System.out.println("results : " + results);
-        /**
-         *
-         * User part
-         */
-        //create
-//        String dateFormat = "MM-dd-yyyy";
-//        try {
-//            DateFormat df = new SimpleDateFormat(dateFormat);
-//            Date dateToUse = df.parse("02-01-2005");
-//            roleAdmin.setId_role(1);
-//            Utilisateur newUser = new Utilisateur(roleAdmin,"monsieur","perrin","benjamin","identifiant cc","monMDP",true,false,dateToUse,dateToUse,dateToUse); 
-//            userDAO.create(newUser);
-//        } catch (ParseException pe) {
-//             System.out.println("fail ");
-//        }
-        //findall
-//            List<Utilisateur> results = userDAO.findAll();
-//            System.out.println("results : " + results);
-        // findbyID
-        //Utilisateur founded = userDAO.findById(1L);
-        //System.out.println("user found : " + founded);
+/*********** USER **********/
         
-         //update
-//        Utilisateur userData = new Utilisateur();
-//         userData.setMotPasse("Le nouvceau mdp");
-//        userDAO.update(1L, userData);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        UtilisateurDAO userDao = new UtilisateurDAO();
+
+        // create
+        role role = new role();
+        role.setId_role(1L);
+
+        Utilisateur user = new Utilisateur(role, "Madame", "Mme x", "x", "x_x", "password", true, false, new Date(), new Date(), new Date());
+        Utilisateur user2 = new Utilisateur(role, "Monsieur", "Mr x", "x", "x_x", "password", true, false, new Date(), new Date(), new Date());
+
+        userDao.create(user);
+        userDao.create(user2);
+        
+        // find all
+        List<Utilisateur> users = userDao.findAll();
+
+        for (Utilisateur u : users) {
+            System.out.println("Find all : " + u);
+        }
+
+        // update
+        Utilisateur userData = new Utilisateur();
+        userData.setActif(false);
+        userData.setMarquerEffacer(true);
+
+        try {
+            userData.setDateModification(formatter.parse("11/01/2022"));
+        } catch (ParseException e) {
+            System.out.println("Problème de parsing : " + e.getMessage());
+        }
+
+        userDao.update(2L, userData);
+
+        // find
+        Utilisateur founded = userDao.findById(2L);
+        System.out.println("User updated : " + founded);
         entityManager.close();
 
     }

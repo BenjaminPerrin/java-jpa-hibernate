@@ -14,58 +14,63 @@ import javax.persistence.*;
  * @author ben
  */
 public class UtilisateurDAO {
-    private static EntityManager entityManager;
-    
+
+    private final EntityManager entityManager;
+
     public UtilisateurDAO() {
         this.entityManager = SessionHelper.getEntityManager();
     }
-    
-    
-    public static void create(Utilisateur user){
-            if (user == null) {
-                System.out.println("l'object user ne peut pas etre null");
-                return;
-            }
-            EntityTransaction trans = null;
-            System.out.println("User :"+user.toString());
-            try {
-                trans = entityManager.getTransaction();
-                trans.begin();
-                //Utilisateur newUser = entityManager.merge(user);
-                //newUser.setId_role(user.);
-                entityManager.persist(user);
-                System.out.println("User créé : "+user.toString());
-                trans.commit();
-            } catch(Exception e) {
-                System.out.println("une erreur s'est produite durant la creation de l'user");
-                if (trans != null) trans.rollback();
-            }
+
+    public List<Utilisateur> findAll() {
+        Query findAllQuery = entityManager.createQuery("select u from Utilisateur u");
+        return findAllQuery.getResultList();
     }
-    
-    public List<Utilisateur> findAll(){
-        Query query = entityManager.createQuery("SELECT u FROM Utilisateur u");
-        List<Utilisateur> results = query.getResultList();
-        return results;
-    }
-    
-        public static Utilisateur findById(long id){
-               Utilisateur founded = entityManager.find(Utilisateur.class, id);
-               if (founded == null ) {
-               System.out.println("User avec id: "+id +" n'existe pas");
-            }
-                return founded;
+
+    public Utilisateur findById(Long id) {
+        Utilisateur founded = entityManager.find(Utilisateur.class, id);
+
+        if (founded == null) {
+            System.out.println("Attention l'utilisateur avec l'id : " + id + " n'exsiste pas !");
         }
-        
-        public void update(Long id, Utilisateur roleData) {
 
-        Utilisateur userToUpdate = entityManager.find(Utilisateur.class, id);
+        return founded;
+    }
 
-        if (userToUpdate == null) {
-            System.out.println("Attention le user avec l'id : " + id + " n'exsiste pas !");
+    public void create(Utilisateur user) {
+
+        if (user == null) {
+            System.out.println("L'objet user ne peut pas être null");
             return;
         }
 
-        userToUpdate.copy(roleData);
+        EntityTransaction tx = null;
+
+        try {
+            tx = entityManager.getTransaction();
+            tx.begin();
+            
+            entityManager.persist(user);
+            
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Une erreur s'est produite lors de la création de l'utilisateur");
+            System.out.println("Exception message : " + e.getMessage());
+            if (tx != null) {
+                tx.rollback();
+            }
+        }
+    }
+
+    public void update(Long id, Utilisateur user) {
+
+        Utilisateur userToUpdate = findById(id);
+        
+        if (userToUpdate == null) {
+            System.out.println("Attention l'utilisteur avec l'id : " + id + " n'exsiste pas !");
+            return;
+        }
+
+        userToUpdate.copy(user);
 
         EntityTransaction tx = null;
 
@@ -77,10 +82,12 @@ public class UtilisateurDAO {
 
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Une erreur s'est produite lors de la modification de l'user");
+            System.out.println("Une erreur s'est produite lors de la modification de l'utilisateur");
+            System.out.println("Exception message : " + e.getMessage());
             if (tx != null) {
                 tx.rollback();
             }
         }
     }
+
 }
