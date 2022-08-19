@@ -46,6 +46,15 @@ public class Adresse {
         this.principale = principale;
     }
 
+    public Adresse(String rue, String codePostal, String ville, String pays, Boolean principale) {
+        this.rue = rue;
+        this.codePostal = codePostal;
+        this.ville = ville;
+        this.pays = pays;
+        this.principale = principale;
+    }
+    
+
     public Long getIdAdresse() {
         return idAdresse;
     }
