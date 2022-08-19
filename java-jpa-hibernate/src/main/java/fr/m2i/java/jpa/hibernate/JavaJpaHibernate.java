@@ -164,18 +164,18 @@ public class JavaJpaHibernate {
         }
 
         // create
-        Produit productCreate = new Produit("REF-N-3310", 500f, "Nokia 3310", "Meilleur téléphone", 1, true);
-        productDao.create(productCreate);
+//        Produit productCreate = new Produit("REF-N-3310", 500f, "Nokia 3310", "Meilleur téléphone", 1, true);
+//        productDao.create(productCreate);
 
         // update
         Produit toUpdate = new Produit();
         toUpdate.setStock(0);
 
-        productDao.update(15L, toUpdate);
+        productDao.update(2L, toUpdate);
 
         // find by id
-        Produit n3310 = productDao.findById(15L);
-        System.out.println(String.format("Le 3310| id: %d - nom: %s - stock: %d", n3310.getIdProduit(), n3310.getNom(), n3310.getStock()));
+        Produit n3310 = productDao.findById(2L);
+        System.out.println(String.format("Le Iphone 3GS| id: %d - nom: %s - stock: %d", n3310.getIdProduit(), n3310.getNom(), n3310.getStock()));
 
         // find by nom
         List<Produit> productsByName = productDao.findByNom("Iphone 3GS");
@@ -211,9 +211,9 @@ public class JavaJpaHibernate {
 
         // delete
         Produit toDelete = new Produit();
-        toDelete.setIdProduit(15L);
+        toDelete.setIdProduit(2L);
 
-        productDao.delete(toDelete);
+        //productDao.delete(toDelete);
         
         entityManager.close();
     }
