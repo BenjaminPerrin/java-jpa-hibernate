@@ -3,49 +3,51 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package fr.m2i.java.jpa.hibernate.model;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import javax.persistence.*;
-/**
- *
- * @author ben
- */
 @Entity
 @Table(name = "produits")
 public class Produit {
-    
+
     @Id
     @Column(name = "id_produit")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProduit;
-    
-    @Column(name = "active", columnDefinition = "TINYINT(1) DEFAULT 1")
-    private Boolean active;
-    
-    @Column(name = "description", columnDefinition = "TEXT")
-    private String description;
-    
+
+    @Column(name = "reference", length = 100)
+    private String reference;
+
+    @Column(name = "prix")
+    private Float prix;
+
     @Column(name = "nom", length = 100)
     private String nom;
     
-    @Column(name = "prix", columnDefinition = "FLOAT")
-    private float prix;
-    
-    @Column(name = "reference", length = 100)
-    private String reference;
-    
-    @Column(name = "stock", length = 11, columnDefinition = "INT")
-    private int stock;
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
 
-    public Produit(Boolean active, String description, String nom, float prix, String reference, int stock) {
-        this.active = active;
-        this.description = description;
-        this.nom = nom;
-        this.prix = prix;
-        this.reference = reference;
-        this.stock = stock;
-    }
+    @Column(name = "stock")
+    private Integer stock;
+
+    @Column(name = "active", columnDefinition = "TINYINT(1) DEFAULT 1")
+    private Boolean active;
 
     public Produit() {
+
+    }
+
+    public Produit(String reference, Float prix, String nom, String description, Integer stock, Boolean active) {
+        this.reference = reference;
+        this.prix = prix;
+        this.nom = nom;
+        this.description = description;
+        this.stock = stock;
+        this.active = active;
     }
 
     public Long getIdProduit() {
@@ -56,20 +58,20 @@ public class Produit {
         this.idProduit = idProduit;
     }
 
-    public Boolean getActive() {
-        return active;
+    public String getReference() {
+        return reference;
     }
 
-    public void setActive(Boolean active) {
-        this.active = active;
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
-    public String getDescription() {
-        return description;
+    public Float getPrix() {
+        return prix;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPrix(Float prix) {
+        this.prix = prix;
     }
 
     public String getNom() {
@@ -80,69 +82,71 @@ public class Produit {
         this.nom = nom;
     }
 
-    public float getPrix() {
-        return prix;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPrix(float prix) {
-        this.prix = prix;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getReference() {
-        return reference;
-    }
-
-    public void setReference(String reference) {
-        this.reference = reference;
-    }
-
-    public int getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     @Override
     public String toString() {
-        return "Produit{" + "idProduit=" + idProduit
-                + ", active=" + active
-                + ", description=" + description
-                + ", nom=" + nom
-                + ", prix=" + prix
-                + ", reference=" + reference
-                + ", stock=" + stock + '}';
+        return "Produit{" +
+                "idProduit=" + idProduit +
+                ", reference='" + reference + '\'' +
+                ", prix=" + prix +
+                ", nom='" + nom + '\'' +
+                ", description='" + description + '\'' +
+                ", stock=" + stock +
+                ", active=" + active +
+                '}';
     }
     
-    public void copy(Produit produitData) {
+    public void copy(Produit productData) {
 
-        if (produitData == null) {
+        if (productData == null) {
             return;
         }
 
-        if (produitData.getIdProduit()!= null) {
-            this.idProduit = produitData.getIdProduit();
+        if (productData.getReference() != null) {
+            this.reference = productData.getReference();
         }
 
-        if (produitData.getDescription()!= null) {
-            this.description = produitData.getDescription();
+        if (productData.getPrix() != null) {
+            this.prix = productData.getPrix();
         }
 
-        if (produitData.getNom() != null) {
-            this.nom = produitData.getNom();
+        if (productData.getNom() != null) {
+            this.nom = productData.getNom();
         }
 
-        if (produitData.getPrix() < 0) {
-            this.prix = produitData.getPrix();
+        if (productData.getDescription() != null) {
+            this.description = productData.getDescription();
         }
 
-        if (produitData.getReference() != null) {
-            this.reference = produitData.getReference();
+        if (productData.getStock() != null) {
+            this.stock = productData.getStock();
         }
-        
-        if (produitData.getStock() < 0) {
-            this.stock = produitData.getStock();
+
+        if (productData.getActive() != null) {
+            this.active = productData.getActive();
         }
     }
 }
